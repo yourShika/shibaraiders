@@ -13,6 +13,9 @@ const HEADERS = {
   'Accept-Language': 'en',
 };
 
+// Twink-Accounts, die nicht in der Liste erscheinen sollen.
+const IGNORED_NAMES = new Set(['Yavi Wohtu', 'Akeno Saeki']);
+
 async function fetchPage(page) {
   const res = await fetch(`${BASE}?page=${page}`, { headers: HEADERS });
   if (!res.ok) throw new Error(`Lodestone antwortete mit HTTP ${res.status} (Seite ${page})`);
@@ -30,6 +33,7 @@ function parseMembers(html) {
     const name = block.match(/class="entry__name"[^>]*>([^<]+)</)?.[1]?.trim();
     const avatar = block.match(/<img src="(https:\/\/img2\.finalfantasyxiv\.com\/[^"]+)"/)?.[1] || '';
     if (!id || !name) continue;
+    if (IGNORED_NAMES.has(name)) continue;
 
     // Rang & Level: alle <span>-Texte im Info-Block einsammeln
     const infoBlock = block.match(/entry__freecompany__info([\s\S]*)$/)?.[1] || block;
