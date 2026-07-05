@@ -1,10 +1,34 @@
 {
-  "updated": "2026-07-05T00:00:00Z",
+  "updated": "2026-07-05T13:21:44.749Z",
   "source": "https://na.finalfantasyxiv.com/lodestone/freecompany/9279948507173621416/member/",
   "members": [
-    { "id": "51140687", "name": "Akeno Kusuri-ya", "rank": "Kaiser Shiba", "level": 100, "avatar": "" },
-    { "id": "11359811", "name": "Maomao Choi", "rank": "Princess", "level": 100, "avatar": "" },
-    { "id": "45171724", "name": "Yavi Wohtu", "rank": "Princess", "level": 27, "avatar": "" },
-    { "id": "58116762", "name": "Akeno Saeki", "rank": "NekoPaw", "level": 25, "avatar": "" }
+    {
+      "id": "51140687",
+      "name": "Akeno Kusuri-ya",
+      "rank": "Kaiser Shiba",
+      "level": 100,
+      "avatar": "https://img2.finalfantasyxiv.com/f/da4633f768e3b3f215b77e2484e9f3e5_6132295fcf5570fb8b0a944ef322a598fc0.jpg?1783254273"
+    },
+    {
+      "id": "11359811",
+      "name": "Maomao Choi",
+      "rank": "Princess",
+      "level": 100,
+      "avatar": "https://img2.finalfantasyxiv.com/f/a4f6b65872483b300a12953733a8f376_6132295fcf5570fb8b0a944ef322a598fc0.jpg?1783255507"
+    },
+    {
+      "id": "45171724",
+      "name": "Yavi Wohtu",
+      "rank": "Princess",
+      "level": 27,
+      "avatar": "https://img2.finalfantasyxiv.com/f/738bd44e128f3fe52eca9125641b57ea_6132295fcf5570fb8b0a944ef322a598fc0.jpg?1783257525"
+    },
+    {
+      "id": "58116762",
+      "name": "Akeno Saeki",
+      "rank": "NekoPaw",
+      "level": 25,
+      "avatar": "https://img2.finalfantasyxiv.com/f/cf365d6de1d180a8ccb6e401a76c5e2b_6132295fcf5570fb8b0a944ef322a598fc0.jpg?1783254462"
+    }
   ]
 }
