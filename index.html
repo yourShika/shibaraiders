@@ -3,37 +3,43 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- SEO & Link-Vorschau. Muss im statischen <head> stehen, NICHT in <helmet>:
+     Crawler (Discord, WhatsApp, Twitter/X, Facebook) fuehren kein JavaScript aus
+     und sehen daher nur das rohe HTML. -->
+<title>Shibaraiders «SHIBA» — Alpha [Light]</title>
+<meta name="description" content="Entspannte deutsch-englischsprachige Freie Gesellschaft in FFXIV auf Alpha [Light]. Ob Neuling, Wiederkehrer oder Veteran — bei uns zählt die Gemeinschaft, nicht der Parse.">
+<link rel="canonical" href="https://shibaraiders.de/">
+<meta name="theme-color" content="#F2B33D">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Shibaraiders «SHIBA»">
+<meta property="og:locale" content="de_DE">
+<meta property="og:locale:alternate" content="en_GB">
+<meta property="og:url" content="https://shibaraiders.de/">
+<meta property="og:title" content="Shibaraiders «SHIBA» — Freie Gesellschaft auf Alpha [Light]">
+<meta property="og:description" content="Entspannte deutsch-englischsprachige Freie Gesellschaft in FFXIV. Ob Neuling, Wiederkehrer oder Veteran — bei uns zählt die Gemeinschaft, nicht der Parse.">
+<meta property="og:image" content="https://shibaraiders.de/assets/og-image.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Shibaraiders in Final Fantasy XIV — nächtliche Szene vor dem Gesellschaftshaus">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Shibaraiders «SHIBA» — Freie Gesellschaft auf Alpha [Light]">
+<meta name="twitter:description" content="Entspannte deutsch-englischsprachige Freie Gesellschaft in FFXIV. Ob Neuling, Wiederkehrer oder Veteran — bei uns zählt die Gemeinschaft, nicht der Parse.">
+<meta name="twitter:image" content="https://shibaraiders.de/assets/og-image.jpg">
+<meta name="twitter:image:alt" content="Shibaraiders in Final Fantasy XIV — nächtliche Szene vor dem Gesellschaftshaus">
+
+<link rel="icon" type="image/png" href="assets/crest.png">
+<link rel="apple-touch-icon" href="assets/crest.png">
+
 <script src="./support.js"></script>
 </head>
 <body>
 <x-dc>
 <helmet>
   <title>Shibaraiders «SHIBA» — Alpha [Light]</title>
-  <meta name="description" content="Entspannte deutsch-englischsprachige Freie Gesellschaft in FFXIV auf Alpha [Light]. Ob Neuling, Wiederkehrer oder Veteran — bei uns zählt die Gemeinschaft, nicht der Parse.">
-  <link rel="canonical" href="https://shibaraiders.de/">
-  <meta name="theme-color" content="#F2B33D">
-
-  <!-- Link-Vorschau (Discord, WhatsApp, Twitter/X, Facebook, Signal ...) -->
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Shibaraiders «SHIBA»">
-  <meta property="og:locale" content="de_DE">
-  <meta property="og:locale:alternate" content="en_GB">
-  <meta property="og:url" content="https://shibaraiders.de/">
-  <meta property="og:title" content="Shibaraiders «SHIBA» — Freie Gesellschaft auf Alpha [Light]">
-  <meta property="og:description" content="Entspannte deutsch-englischsprachige Freie Gesellschaft in FFXIV. Ob Neuling, Wiederkehrer oder Veteran — bei uns zählt die Gemeinschaft, nicht der Parse.">
-  <meta property="og:image" content="https://shibaraiders.de/assets/og-image.jpg">
-  <meta property="og:image:type" content="image/jpeg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Shibaraiders in Final Fantasy XIV — nächtliche Szene vor dem Gesellschaftshaus">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Shibaraiders «SHIBA» — Freie Gesellschaft auf Alpha [Light]">
-  <meta name="twitter:description" content="Entspannte deutsch-englischsprachige Freie Gesellschaft in FFXIV. Ob Neuling, Wiederkehrer oder Veteran — bei uns zählt die Gemeinschaft, nicht der Parse.">
-  <meta name="twitter:image" content="https://shibaraiders.de/assets/og-image.jpg">
-  <meta name="twitter:image:alt" content="Shibaraiders in Final Fantasy XIV — nächtliche Szene vor dem Gesellschaftshaus">
-
-  <link rel="icon" type="image/png" href="assets/crest.png">
-  <link rel="apple-touch-icon" href="assets/crest.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -144,7 +150,7 @@
             <p style="margin:18px 0 0;font-size:16.5px;line-height:1.65;color:#B7BCC7;max-width:520px;">{{ t.heroText }}</p>
             <div style="display:flex;gap:12px;margin-top:30px;flex-wrap:wrap;">
               <a class="lift" href="https://de.oformo.com/form/81modegmliq0w73g" target="_blank" style="background:#F2B33D;color:#1B1E26;text-decoration:none;border-radius:10px;padding:14px 26px;font-weight:700;font-size:15.5px;" style-hover="background:#FFC556;">{{ t.ctaJoin }}</a>
-              <a class="lift" href="https://discord.gg/bGZE5mnKxV" target="_blank" style="background:#5865F2;color:#fff;text-decoration:none;border-radius:10px;padding:14px 26px;font-weight:600;font-size:15.5px;" style-hover="background:#6B77FF;">{{ t.ctaDiscord }}</a>
+              <a class="lift" href="http://discord.shibaraiders.de/" target="_blank" style="background:#5865F2;color:#fff;text-decoration:none;border-radius:10px;padding:14px 26px;font-weight:600;font-size:15.5px;" style-hover="background:#6B77FF;">{{ t.ctaDiscord }}</a>
             </div>
           </div>
           <div class="crest-wrap" style="flex:0 0 auto;">
@@ -300,7 +306,7 @@
         <span style="font-weight:700;font-size:14px;">Shibaraiders «SHIBA»</span>
       </div>
       <nav style="display:flex;gap:20px;margin-left:auto;font-size:13.5px;">
-        <a href="https://discord.gg/bGZE5mnKxV" target="_blank" style="color:#9AA0AE;text-decoration:none;" style-hover="color:#F2B33D;">Discord</a>
+        <a href="http://discord.shibaraiders.de/" target="_blank" style="color:#9AA0AE;text-decoration:none;" style-hover="color:#F2B33D;">Discord</a>
         <a href="https://na.finalfantasyxiv.com/lodestone/freecompany/9279948507173621416/" target="_blank" style="color:#9AA0AE;text-decoration:none;" style-hover="color:#F2B33D;">Lodestone</a>
         <a href="https://de.oformo.com/form/81modegmliq0w73g" target="_blank" style="color:#9AA0AE;text-decoration:none;" style-hover="color:#F2B33D;">{{ t.navJoin }}</a>
       </nav>
@@ -523,7 +529,7 @@ class Component extends DCLogic {
 
     const steps = [
       { n: 1, title: t.stepFormT, text: t.stepFormX, href: 'https://de.oformo.com/form/81modegmliq0w73g', cta: t.stepFormC, btnStyle: btnGold },
-      { n: 2, title: t.stepDiscT, text: t.stepDiscX, href: 'https://discord.gg/bGZE5mnKxV', cta: t.stepDiscC, btnStyle: btnBlurple },
+      { n: 2, title: t.stepDiscT, text: t.stepDiscX, href: 'http://discord.shibaraiders.de/', cta: t.stepDiscC, btnStyle: btnBlurple },
       { n: 3, title: t.stepInvT, text: t.stepInvX, href: '', cta: '', btnStyle: '' },
     ];
 
