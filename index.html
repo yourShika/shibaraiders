@@ -317,13 +317,64 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;defaultLang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;auto&quot;,&quot;options&quot;:[&quot;auto&quot;,&quot;de&quot;,&quot;en&quot;],&quot;tsType&quot;:&quot;'auto'|'de'|'en'&quot;,&quot;section&quot;:&quot;Sprache&quot;},&quot;recruitmentOpen&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Rekrutierung&quot;}}">
 class Component extends DCLogic {
-  state = { lang: null, page: 'home', liveMembers: null, menuOpen: false };
+  state = { lang: null, page: 'home', liveMembers: null, menuOpen: false, localAvatars: {} };
+
+  // Wird auch fuer den Portrait-Abgleich genutzt, falls members.json nicht laedt.
+  FALLBACK_MEMBERS = [
+    { id: '51140687', name: 'Akeno Kusuri-ya', rank: 'Kaiser Shiba', level: 100, avatar: '' },
+    { id: '11359811', name: 'Maomao Choi', rank: 'Shogun', level: 100, avatar: '' },
+  ];
 
   componentDidMount() {
     fetch('members.json', { cache: 'no-store' })
       .then(r => (r.ok ? r.json() : null))
-      .then(d => { if (d && Array.isArray(d.members) && d.members.length) this.setState({ liveMembers: d.members }); })
-      .catch(() => {});
+      .then(d => {
+        const live = d && Array.isArray(d.members) && d.members.length ? d.members : null;
+        if (live) this.setState({ liveMembers: live });
+        this.resolveLocalAvatars(live || this.FALLBACK_MEMBERS);
+      })
+      .catch(() => this.resolveLocalAvatars(this.FALLBACK_MEMBERS));
+  }
+
+  // Erzeugt in Prioritaetsreihenfolge die Dateinamen, unter denen ein lokales
+  // Portrait liegen darf. Aus "Akeno Kusuri-ya" werden u.a. "akeno" und
+  // "akeno-kusuri-ya" — jeweils als .png/.jpg/.webp unter assets/.
+  avatarCandidates(name) {
+    const norm = String(name).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    const first = norm.split(/\s+/)[0].replace(/[^a-z0-9]/g, '');
+    const slug = norm.replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+    const bases = [...new Set([first, slug].filter(Boolean))];
+    const exts = ['png', 'jpg', 'webp'];
+    const out = [];
+    for (const b of bases) for (const e of exts) out.push('assets/' + b + '.' + e);
+    return out;
+  }
+
+  // Prueft je Mitglied, ob eine lokale Portrait-Datei existiert, und traegt den
+  // ersten Treffer in state.localAvatars ein. Existenz wird ueber ein
+  // Image()-Load geprueft — ein Verzeichnislisting ist auf einer statischen
+  // Seite nicht verfuegbar. Kein Treffer => das Lodestone-Bild bleibt.
+  resolveLocalAvatars(list) {
+    this._localAvatars = this._localAvatars || {};
+    (list || []).forEach(m => {
+      if (!m || !m.name) return;
+      const key = m.id || String(m.name).toLowerCase();
+      if (this._localAvatars[key]) return;
+      const cands = this.avatarCandidates(m.name);
+      let i = 0;
+      const tryNext = () => {
+        if (i >= cands.length) return;
+        const path = cands[i++];
+        const probe = new Image();
+        probe.onload = () => {
+          this._localAvatars[key] = path;
+          this.setState({ localAvatars: Object.assign({}, this._localAvatars) });
+        };
+        probe.onerror = tryNext;
+        probe.src = path;
+      };
+      tryNext();
+    });
   }
 
   resolveLang() {
@@ -550,14 +601,8 @@ class Component extends DCLogic {
       };
       return map[rank] || (lang === 'de' ? 'Mitglied' : 'Member');
     };
-    const LOCAL_AVATARS = { '51140687': 'assets/akeno.png' };
-
-    const fallbackMembers = [
-      { id: '51140687', name: 'Akeno Kusuri-ya', rank: 'Kaiser Shiba', level: 100, avatar: '' },
-      { id: '11359811', name: 'Maomao Choi', rank: 'Shogun', level: 100, avatar: '' },
-    ];
-
-    const raw = this.state.liveMembers || fallbackMembers;
+    const localAvatars = this.state.localAvatars || {};
+    const raw = this.state.liveMembers || this.FALLBACK_MEMBERS;
     const members = raw.slice()
       .sort((a, b) => {
         const ra = RANK_ORDER.indexOf(a.rank); const rb = RANK_ORDER.indexOf(b.rank);
@@ -568,7 +613,7 @@ class Component extends DCLogic {
         name: m.name,
         rank: m.rank,
         lvl: String(m.level || '?'),
-        src: LOCAL_AVATARS[m.id] || m.avatar || undefined,
+        src: localAvatars[m.id || String(m.name).toLowerCase()] || m.avatar || undefined,
         role: roleByRank(m.rank),
       }));
 

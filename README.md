@@ -1,31 +1,55 @@
-# Shibaraiders «SHIBA» — FC-Website
+<div align="center">
 
-Statische Website der Freien Gesellschaft **Shibaraiders** (Alpha [Light]) — gehostet über GitHub Pages, mit automatisch aktualisierter Mitgliederliste vom Lodestone.
+# Shibaraiders «SHIBA»
 
-## Auf GitHub veröffentlichen
+**Website der Freien Gesellschaft _Shibaraiders_ · Alpha [Light]**
 
-1. Neues Repository anlegen (z. B. `shibaraiders-site`).
-2. **Alle Dateien dieses Ordners** ins Repository pushen (inkl. des versteckten Ordners `.github/`!).
-3. Im Repo: **Settings → Pages → Source: "Deploy from a branch"**, Branch `main`, Ordner `/ (root)` wählen.
-4. Nach ca. 1 Minute ist die Seite unter `https://<dein-name>.github.io/shibaraiders-site/` erreichbar.
+[🌐 shibaraiders.de](https://shibaraiders.de) · [💬 Discord](http://discord.shibaraiders.de/) · [📖 Lodestone](https://na.finalfantasyxiv.com/lodestone/freecompany/9279948507173621416/)
 
-## Automatische Mitgliederliste
+</div>
 
-- Die Seite lädt beim Öffnen `members.json` und zeigt alle Mitglieder mit Rang, Level und Lodestone-Avatar (Fallback).
-- Die GitHub Action `.github/workflows/update-members.yml` ruft **täglich um 03:17 UTC** die Mitgliederliste vom Lodestone ab und committet Änderungen in `members.json`. Neue Mitglieder erscheinen also automatisch.
-- Manuell aktualisieren: Tab **Actions → "Mitgliederliste vom Lodestone aktualisieren" → Run workflow**.
-- Falls die Action beim allerersten Mal nicht läuft: **Settings → Actions → General → Workflow permissions → "Read and write permissions"** aktivieren.
+---
 
-## Ränge
+## ⚖️ Rechte & Nutzung
 
-Die Rangbeschreibungen (Kaiser Shiba = Owner, Shogun, NekoPaw, Mascot, Gokiburi) sind in `index.html` hinterlegt — unbekannte neue Ränge werden als „Mitglied" angezeigt.
+© **yourShika** — Owner der Freien Gesellschaft Shibaraiders «SHIBA». **Alle Rechte vorbehalten.**
 
-## Bilder
+Dieses Repository und sämtliche Inhalte (Code, Texte, Bilder, Design) sind **privates Eigentum des Owners**. Es gilt **ausdrücklich keine** freie Lizenz:
 
-- `assets/crest.png` — FC-Logo
-- `assets/akeno.png` — Portrait des Owners (wird statt des Lodestone-Avatars angezeigt)
-- Weitere Portraits: einfach `LOCAL_AVATARS` in `index.html` erweitern (`'<Lodestone-Charakter-ID>': 'assets/datei.png'`).
+- ❌ Keine Nutzung, Vervielfältigung, Veränderung, Weiterverbreitung oder Veröffentlichung durch Dritte.
+- ❌ Kein Fork, kein Deployment, keine Übernahme von Teilen — auch nicht auszugsweise.
+- ✅ Jede Nutzung **nur nach vorheriger, ausdrücklicher Absprache mit dem Owner**.
 
-## Rechtliches
+Anfragen bitte direkt an den Owner (Discord / ingame). Ohne Zustimmung ist jede Verwendung untersagt.
+
+---
+
+## 🖼️ Portraits hinzufügen
+
+Jedes Mitglied bekommt automatisch sein **Lodestone-Portrait**. Der Owner kann das pro Person durch ein eigenes Bild ersetzen — **ohne Code anzufassen**:
+
+1. Bild als **PNG** (oder JPG/WebP) unter `assets/` ablegen.
+2. Datei nach dem **Vornamen** des Mitglieds benennen, klein geschrieben.
+
+| Mitglied | Datei ablegen als |
+|----------|-------------------|
+| Akeno Kusuri-ya | `assets/akeno.png` |
+| Diamos | `assets/diamos.png` |
+
+Sobald die Datei im Repository liegt, wird sie beim nächsten Laden der Seite automatisch statt des Lodestone-Bildes angezeigt. Ist **keine** passende Datei vorhanden, bleibt das Lodestone-Portrait — es kann also nichts kaputtgehen.
+
+> Alternativ funktioniert auch der volle Name mit Bindestrichen, z. B. `assets/akeno-kusuri-ya.png`.
+
+---
+
+## 👥 Mitgliederliste
+
+Die Mitglieder werden **automatisch vom Lodestone** gepflegt — neue Mitglieder erscheinen von selbst, ausgetretene verschwinden. Twink-Accounts sind im Update-Skript ausgenommen.
+
+Ränge werden zur Anzeige übersetzt (z. B. _Kaiser Shiba → Owner_, _Shogun → Stellvertretung_); unbekannte Ränge erscheinen als „Mitglied".
+
+---
+
+## 📜 Rechtliches
 
 Inoffizielle Community-Seite. FINAL FANTASY XIV © SQUARE ENIX CO., LTD. Diese Seite steht in keiner Verbindung zu Square Enix.
