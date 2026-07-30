@@ -42,6 +42,21 @@ Sobald die Datei im Repository liegt, wird sie beim nächsten Laden der Seite au
 
 ---
 
+## 🎞️ Startbild-Galerie
+
+Auf der Startseite laufen die Bilder in `assets/gallery/` automatisch als Galerie durch — sanfter Wechsel in Intervallen, Pfeile beim Drüberfahren, Punkte zum Anspringen.
+
+**Ein Bild hinzufügen:**
+
+1. Bild als **JPG** (oder PNG/WebP) unter `assets/gallery/` ablegen.
+2. Fortlaufend nummeriert benennen: `01.jpg`, `02.jpg`, `03.jpg` …
+
+Das war's — beim nächsten Laden ist es automatisch Teil der Galerie. Die Reihenfolge folgt den Nummern.
+
+> **Tipp:** Große Screenshots vorher verkleinern (z. B. auf 1600 px Breite), damit die Seite schnell lädt. Sehr breite/hohe Bilder werden mittig beschnitten.
+
+---
+
 ## 👥 Mitgliederliste
 
 Die Mitglieder werden **automatisch vom Lodestone** gepflegt — neue Mitglieder erscheinen von selbst, ausgetretene verschwinden. Twink-Accounts sind im Update-Skript ausgenommen.
