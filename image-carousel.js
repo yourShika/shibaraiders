@@ -22,6 +22,7 @@
 (() => {
   const EXTS = ['jpg', 'jpeg', 'png', 'webp'];
   const MISS_STOP = 3; // nach so vielen fehlenden Nummern in Folge abbrechen
+  const SLIDE_MS = 1100; // Dauer des Slide-Uebergangs — MUSS zur CSS-Transition passen
 
   const pad = (n) => (n < 10 ? '0' + n : '' + n);
 
@@ -59,7 +60,7 @@
     '  border-radius:' + radius + 'px;background:#1B1E26}' +
     '.track{display:flex;height:100%;width:100%;will-change:transform}' +
     // Langsames, ruhiges Gleiten.
-    '.track.anim{transition:transform 1.1s cubic-bezier(.4,0,.2,1)}' +
+    '.track.anim{transition:transform ' + (SLIDE_MS / 1000) + 's cubic-bezier(.4,0,.2,1)}' +
     '.slide{flex:0 0 100%;height:100%;position:relative}' +
     '.slide img{width:100%;height:100%;object-fit:cover;display:block;user-select:none;-webkit-user-drag:none}' +
     // Bedien-Ebene ueber den Bildern. WICHTIG: liegt NEBEN dem .track, nicht
@@ -124,6 +125,7 @@
 
     disconnectedCallback() {
       this._stop();
+      clearTimeout(this._settle);
       if (this._visFn) document.removeEventListener('visibilitychange', this._visFn);
     }
 
@@ -168,17 +170,20 @@
       overlay.querySelectorAll('.dot').forEach((d) => {
         d.addEventListener('click', () => { this._toReal(parseInt(d.dataset.i, 10)); this._restart(); });
       });
-      // Nur der Slide-transform des .track darf das Loop-Handling ausloesen —
-      // nicht z. B. die Opacity-Transition der Pfeile.
-      this._track.addEventListener('transitionend', (e) => {
-        if (e.target === this._track && e.propertyName === 'transform') this._onEnd();
-      });
       this._updateDots();
       this._start();
     }
 
     _place(animate) {
-      this._track.classList.toggle('anim', !!animate);
+      if (animate) {
+        this._track.classList.add('anim');
+      } else {
+        // Sprung ohne Transition: Klasse entfernen UND einen Reflow erzwingen,
+        // sonst animiert der Browser den Ruecksprung sichtbar (Flackern durch
+        // alle Bilder). void offsetWidth erzwingt das Neu-Layout dazwischen.
+        this._track.classList.remove('anim');
+        void this._track.offsetWidth;
+      }
       this._track.style.transform = 'translateX(' + (-this._index * 100) + '%)';
     }
 
@@ -190,6 +195,7 @@
       this._index += delta;
       this._place(true);
       this._updateDots();
+      this._scheduleSettle();
     }
 
     _toReal(realIdx) {
@@ -201,6 +207,16 @@
       this._index = target;
       this._place(true);
       this._updateDots();
+      this._scheduleSettle();
+    }
+
+    // Nach dem Slide aufraeumen — ZEITGESTEUERT statt per transitionend.
+    // transitionend feuert nicht zuverlaessig (Hintergrund-Tab, verschluckte
+    // Events) und liess das Karussell dann auf einem Klon haengen. Der Timer
+    // greift immer, also bleibt nichts stehen und der Ruecksprung ist sauber.
+    _scheduleSettle() {
+      clearTimeout(this._settle);
+      this._settle = setTimeout(() => this._onEnd(), SLIDE_MS + 60);
     }
 
     _onEnd() {
